@@ -1,5 +1,5 @@
-import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
+import MapView, { AnimatedRegion, Animated, Marker } from 'react-native-maps';
 import {
   Image,
   ScrollView,
@@ -7,167 +7,178 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Dimensions
 } from 'react-native';
 
-export default function HomeScreen() {
-  return (
-    <View style={styles.container}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}>
-        <View style={styles.welcomeContainer}>
-          <Image
-            source={
-              //__DEV__
-              //  ? require('../assets/images/robot-dev.png')
-              //  : require('../assets/images/robot-prod.png')
-              require('../assets/images/logo.png')
-            }
-            style={styles.welcomeImage}
-          />
-        </View>
+export default class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      region: {
+        latitude: 49.6083891,
+        longitude: 6.1262951,
+        latitudeDelta: 0.07,
+        longitudeDelta: 0.07,
+      },
+      markers: [
+        {
+          latlng: {
+            latitude: 49.6097942,
+            longitude: 6.1330438,
+          },
+          title: 'Restaurant Clairefontaine',
+          description: 'Restaurant',
+        },
+        {
+          latlng: {
+            latitude: 49.610992,
+            longitude: 6.1291531,
+          },
+          title: 'Grand Café by RedBeef',
+          description: 'Restaurant',
+        },
+        {
+          latlng: {
+            latitude: 49.6101279,
+            longitude: 6.1292419,
+          },
+          title: 'Restaurant Ambrosia',
+          description: 'Restaurant grec',
+        },
+        {
+          latlng: {
+            latitude: 49.610039,
+            longitude: 6.1283558,
+          },
+          title: 'Restaurant L\'Adresse',
+          description: 'Restaurant',
+        },
+        {
+          latlng: {
+            latitude: 49.611384,
+            longitude: 6.1327109,
+          },
+          title: 'Ristorante Essenza',
+          description: 'Restaurant italien',
+        },
+        {
+          latlng: {
+            latitude: 49.6180017,
+            longitude: 6.1420267,
+          },
+          title: 'Tempo',
+          description: 'Restaurant',
+        },
+        {
+          latlng: {
+            latitude: 49.6030021,
+            longitude: 6.13459,
+          },
+          title: 'Lux\'burgers',
+          description: 'Restaurant',
+        },
+        {
+          latlng: {
+            latitude: 49.6027388,
+            longitude: 6.1260344,
+          },
+          title: 'Athena',
+          description: 'Restaurant',
+        }
+      ]
+    };
+    this.onluxburgerPress = this.onluxburgerPress.bind(this);
+    this.onClairefontainePress = this.onClairefontainePress.bind(this);
+    this.markerRefs = {};
+  }
 
-        <View style={styles.getStartedContainer}>
-          <Text style={styles.userFullName}>François Brussieux</Text>
-        </View>
+  onRegionChange(region) {
+    this.state.region.setValue(region);
+  }
 
-        <View style={ { flex: 1, flexDirection: 'row', marginTop: 30, marginBottom: 30 } }>
-          <View style={ styles.sectionContainer }>
-            <Text style={styles.sectionLabel}>Montant disponible</Text>
-            <Text style={styles.sectionValue}>€ 98,9 / 194,4</Text>
-          </View>
-          <View style={ styles.sectionContainer }>
-            <Text style={styles.sectionLabel}>Prochain rechargement</Text>
-            <Text style={styles.sectionValue}>2 Février (3j)</Text>
-          </View>
-        </View>
+  onluxburgerPress() {
+    this.markerRefs['Lux\'burgers']._component.showCallout();
+  }
 
-      </ScrollView>
-    </View>
-  );
-}
+  onClairefontainePress() {
+    this.markerRefs['Restaurant Clairefontaine']._component.showCallout();
+  }
 
-HomeScreen.navigationOptions = {
-  header: null,
-};
-
-function DevelopmentModeNotice() {
-  if (__DEV__) {
-    const learnMoreButton = (
-      <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
-        Learn more
-      </Text>
-    );
-
+  render() {
     return (
-      <Text style={styles.developmentModeText}>
-        Development mode is enabled: your app will be slower but you can use
-        useful development tools. {learnMoreButton}
-      </Text>
-    );
-  } else {
-    return (
-      <Text style={styles.developmentModeText}>
-        You are not in development mode: your app will run at full speed.
-      </Text>
+        <View style={styles.container}>
+          <MapView style={ styles.mapStyle } region={ this.state.region }>
+            { this.state.markers.map(marker => (
+                <Marker.Animated
+                    key={ marker.title}
+                    ref={ ( ref ) => { this.markerRefs[marker.title] = ref; } }
+                    coordinate={marker.latlng}
+                    title={marker.title}
+                    description={marker.description}
+                />
+            )) }
+          </MapView>
+          <View style={styles.restoOverview}>
+            <ScrollView directionalLockEnabled={ true } horizontal={ true }>
+              <TouchableOpacity style={ styles.resto } onPress={ this.onluxburgerPress }>
+                <View style={ styles.restoImage }>
+                  <Image resizeMode="contain" style={ { width: '100%', height: '100%' } } source={ require( '../assets/images/luxburger.png') } />
+                </View>
+                <View style={ styles.restoDescription }>
+                  <Text style={ styles.restoDescriptionText }>Lux'Burger</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity style={ styles.resto } onPress={ this.onClairefontainePress }>
+                <View style={ styles.restoImage }>
+                  <Image resizeMode="contain" style={ { width: '100%', height: '100%' } }  source={ require( '../assets/images/clairfontaine.png') } />
+                </View>
+                <View style={ styles.restoDescription }>
+                  <Text style={ styles.restoDescriptionText }>Restaurant Clairefontaine</Text>
+                </View>
+              </TouchableOpacity>
+            </ScrollView>
+          </View>
+        </View>
     );
   }
 }
 
-function handleLearnMorePress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/development-mode/'
-  );
-}
-
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes'
-  );
-}
-
 const styles = StyleSheet.create({
-  container: {
+  mapContainer: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
     alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
+    justifyContent: 'center',
   },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
+  mapStyle: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height - 380,
   },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  sectionLabel: {
-    fontSize: 17,
-    fontWeight: 'bold',
-  },
-  sectionValue: {
-    fontSize: 20,
-  },
-  sectionContainer: {
+  container: {
     flex: 1,
-    alignItems: 'center',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    backgroundColor: '#fff',
   },
-  homeScreenFilename: {
-    marginVertical: 7,
+  restoOverview: {
+    height: 200,
+    flexGrow: 0,
+    flexShrink: 0,
+    flexBasis: 200,
   },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
+  resto: {
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    padding: 10,
   },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
+  restoImage: {
+    width: 240,
+    //borderColor: 'black',
+    //borderWidth: 1,
+    flex: 1,
   },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  userFullName: {
-    fontSize: 27,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 34,
-    textAlign: 'center',
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
-  },
+  restoDescriptionText: {
+    fontSize: 18,
+
+  }
 });

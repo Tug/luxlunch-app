@@ -9,8 +9,8 @@ import TransactionsScreen from '../screens/TransactionsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 const config = Platform.select({
-  web: { headerMode: 'screen' },
-  default: {},
+  web: { headerMode: 'none' },
+  default: { headerMode: 'none' },
 });
 
 const HomeStack = createStackNavigator(
@@ -21,15 +21,12 @@ const HomeStack = createStackNavigator(
 );
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Synthèse',
+  tabBarLabel: 'Ou manger',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-wallet`
-          : 'md-wallet'
-      }
+      lib={'MaterialCommunityIcons'}
+      name={'silverware-fork-knife'}
     />
   ),
 };
@@ -60,7 +57,7 @@ const SettingsStack = createStackNavigator(
 );
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Paramètres',
+  tabBarLabel: 'Mon compte',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
   ),
