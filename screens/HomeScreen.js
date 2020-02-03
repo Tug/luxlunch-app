@@ -18,25 +18,30 @@ export default function HomeScreen() {
         <View style={styles.welcomeContainer}>
           <Image
             source={
-              __DEV__
-                ? require('../assets/images/robot-dev.png')
-                : require('../assets/images/robot-prod.png')
+              //__DEV__
+              //  ? require('../assets/images/robot-dev.png')
+              //  : require('../assets/images/robot-prod.png')
+              require('../assets/images/logo.png')
             }
             style={styles.welcomeImage}
           />
         </View>
 
         <View style={styles.getStartedContainer}>
-          <Text style={styles.getStartedText}>Bienvenue sur l'application Luxlunch</Text>
+          <Text style={styles.userFullName}>François Brussieux</Text>
         </View>
 
-        <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>
-              Help, it didn’t automatically reload!
-            </Text>
-          </TouchableOpacity>
+        <View style={ { flex: 1, flexDirection: 'row', marginTop: 30, marginBottom: 30 } }>
+          <View style={ styles.sectionContainer }>
+            <Text style={styles.sectionLabel}>Montant disponible</Text>
+            <Text style={styles.sectionValue}>€ 98,9 / 194,4</Text>
+          </View>
+          <View style={ styles.sectionContainer }>
+            <Text style={styles.sectionLabel}>Prochain rechargement</Text>
+            <Text style={styles.sectionValue}>2 Février (3j)</Text>
+          </View>
         </View>
+
       </ScrollView>
     </View>
   );
@@ -112,6 +117,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 50,
   },
+  sectionLabel: {
+    fontSize: 17,
+    fontWeight: 'bold',
+  },
+  sectionValue: {
+    fontSize: 20,
+  },
+  sectionContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
   homeScreenFilename: {
     marginVertical: 7,
   },
@@ -127,6 +143,12 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
+    textAlign: 'center',
+  },
+  userFullName: {
+    fontSize: 27,
+    color: 'rgba(96,100,109, 1)',
+    lineHeight: 34,
     textAlign: 'center',
   },
   tabBarInfoText: {
