@@ -1,44 +1,4 @@
 {
-  "expo": {
-    "name": "Luxlunch",
-    "slug": "luxlunch-app",
-    "privacy": "public",
-    "sdkVersion": "36.0.0",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "bundleIdentifier": "lu.luxlunch.customerapp",
-      "buildNumber": "1.0.0",
-      "supportsTablet": true,
-      "config": {
-        "googleMapsApiKey": "AIzaSyDi1ES8nD6FcMHnKpsQvAwT2xsTImIZIvI"
-      }
-    },
-    "android": {
-      "package": "lu.luxlunch.customerapp",
-      "versionCode": 1,
-      "config": {
-        "googleMaps": {
-          "apiKey": "AIzaSyDi1ES8nD6FcMHnKpsQvAwT2xsTImIZIvI"
-        }
-      }
-    }
-  }
+  "displayName": "Luxlunch",
+  "name": "LuxlunchApp"
 }
