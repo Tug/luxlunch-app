@@ -4,6 +4,10 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import { mapping, light as lightTheme } from '@eva-design/eva';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import AppNavigator from './navigation/AppNavigator';
 
@@ -13,17 +17,22 @@ export default function App(props) {
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
       <AppLoading
-        startAsync={loadResourcesAsync}
-        onError={handleLoadingError}
-        onFinish={() => handleFinishLoading(setLoadingComplete)}
+        startAsync={ loadResourcesAsync }
+        onError={ handleLoadingError }
+        onFinish={ () => handleFinishLoading( setLoadingComplete ) }
       />
     );
   } else {
     return (
-      <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <AppNavigator />
-      </View>
+      <>
+        <IconRegistry icons={ [ EvaIconsPack ] }/>
+        <ApplicationProvider mapping={ mapping } theme={ lightTheme }>
+          <SafeAreaProvider>
+            { Platform.OS === 'ios' && <StatusBar barStyle="default" /> }
+            <AppNavigator />
+          </SafeAreaProvider>
+        </ApplicationProvider>
+      </>
     );
   }
 }

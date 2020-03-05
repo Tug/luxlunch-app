@@ -24,7 +24,21 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "lu.luxlunch.customerapp",
+      "buildNumber": "1.0.0",
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyDi1ES8nD6FcMHnKpsQvAwT2xsTImIZIvI"
+      }
+    },
+    "android": {
+      "package": "lu.luxlunch.customerapp",
+      "versionCode": 1,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDi1ES8nD6FcMHnKpsQvAwT2xsTImIZIvI"
+        }
+      }
     }
   }
 }

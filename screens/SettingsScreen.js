@@ -1,6 +1,4 @@
-import * as WebBrowser from 'expo-web-browser';
-import React from 'react';
-import MapView from 'react-native-maps';
+import React from 'react';;
 import {
   Image,
   ScrollView,
@@ -12,39 +10,48 @@ import {
 
 export default function SettingsScreen() {
   return (
-      <View style={styles.container}>
-        <ScrollView
-            style={styles.container}
-            contentContainerStyle={styles.contentContainer}>
-          <View style={styles.welcomeContainer}>
-            <Image
-                source={
-                  //__DEV__
-                  //  ? require('../assets/images/robot-dev.png')
-                  //  : require('../assets/images/robot-prod.png')
-                  require('../assets/images/logo.png')
-                }
-                style={styles.welcomeImage}
-            />
-          </View>
-
-          <View style={styles.getStartedContainer}>
-            <Text style={styles.userFullName}>François Brussieux</Text>
-          </View>
-
-          <View style={ { flex: 1, flexDirection: 'row', marginTop: 30, marginBottom: 30 } }>
-            <View style={ styles.sectionContainer }>
-              <Text style={styles.sectionLabel}>Montant disponible</Text>
-              <Text style={styles.sectionValue}>€ 98,9 / 194,4</Text>
-            </View>
-            <View style={ styles.sectionContainer }>
-              <Text style={styles.sectionLabel}>Prochain rechargement</Text>
-              <Text style={styles.sectionValue}>2 Février (3j)</Text>
-            </View>
-          </View>
-
-        </ScrollView>
+    <ScrollView
+        contentContainerStyle={styles.contentContainer}>
+      <View style={styles.welcomeContainer}>
+        <Image
+            source={
+              //__DEV__
+              //  ? require('../assets/images/robot-dev.png')
+              //  : require('../assets/images/robot-prod.png')
+              require('../assets/images/logo.png')
+            }
+            style={styles.welcomeImage}
+        />
       </View>
+
+      <View style={styles.getStartedContainer}>
+        <Image
+            style={styles.avatar}
+            source={require('../assets/images/me.jpg')}
+        />
+        <View style={ { flex: 1 } }>
+          <Text style={styles.userFullName}>Tugdual de Kerviler</Text>
+          <Text style={styles.userCompany}>Luxlunch Inc.</Text>
+        </View>
+      </View>
+
+      <View style={ { flex: 1, flexDirection: 'row', marginTop: 30, marginBottom: 30 } }>
+        <View style={ styles.sectionContainer }>
+          <Text style={styles.sectionValue}>€ 198,40</Text>
+          <Text style={styles.sectionLabel}>Montant total disponible</Text>
+        </View>
+        <View style={ styles.sectionContainer }>
+          <Text style={styles.sectionValue}>€ 21.60</Text>
+          <Text style={styles.sectionLabel}>À dépenser aujourd'hui</Text>
+        </View>
+      </View>
+
+
+      <View style={ { flex: 1, width: '100%', alignItems: 'center' } }>
+        <Text style={ { fontSize: 14 } }>Vos titres-restaurant ont une valeur unitaire de 10,80 €.</Text>
+      </View>
+
+    </ScrollView>
   );
 }
 
@@ -57,6 +64,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  avatar: {
+    marginRight: 16,
+    borderRadius: 48,
+    width: 96,
+    height: 96
+  },
   developmentModeText: {
     marginBottom: 20,
     color: 'rgba(0,0,0,0.4)',
@@ -65,7 +78,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   contentContainer: {
-    paddingTop: 30,
+    justifyContent: 'flex-start',
   },
   welcomeContainer: {
     alignItems: 'center',
@@ -82,17 +95,20 @@ const styles = StyleSheet.create({
   getStartedContainer: {
     alignItems: 'center',
     marginHorizontal: 50,
+    flexDirection: 'row',
   },
   sectionLabel: {
     fontSize: 17,
-    fontWeight: 'bold',
+    fontWeight: 'normal',
   },
   sectionValue: {
-    fontSize: 20,
+    fontSize: 30,
+    fontWeight: '500',
   },
   sectionContainer: {
     flex: 1,
     alignItems: 'center',
+    padding: 10,
   },
   homeScreenFilename: {
     marginVertical: 7,
@@ -115,7 +131,13 @@ const styles = StyleSheet.create({
     fontSize: 27,
     color: 'rgba(96,100,109, 1)',
     lineHeight: 34,
-    textAlign: 'center',
+    textAlign: 'left',
+  },
+  userCompany: {
+    fontSize: 17,
+    color: 'rgba(96,100,109, 1)',
+    lineHeight: 34,
+    textAlign: 'left',
   },
   tabBarInfoText: {
     fontSize: 17,
